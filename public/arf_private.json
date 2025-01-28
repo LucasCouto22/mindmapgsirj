@@ -1,0 +1,524 @@
+{
+    "children": [
+          {
+            "children": [
+                {  
+                    "children": [
+                                {
+                                    "name": "Diário Oficial do Estado do Rio de Janeiro",
+                                    "type": "url",
+                                    "url": "http://www.ioerj.com.br/"
+                                },
+                                {
+                                    "name": "Diário Oficial do Município do Rio de Janeiro",
+                                    "type": "url",
+                                    "url": "https://doweb.rio.rj.gov.br/"
+                                },
+                                {
+                                    "name": "Diário Oficial do Município de São João de Meriti",
+                                    "type": "url",
+                                    "url": "https://transparencia.meriti.rj.gov.br/?serv=1045"
+                                },
+                                {
+                                    "name": "Diário Oficial do Município de Nilópolis",
+                                    "type": "url",
+                                    "url": "https://nilopolis.rj.gov.br/diario-oficial-online/"
+                                },
+                                {
+                                    "name": "Diário Oficial do Município de Campos dos Goytacazes",
+                                    "type": "url",
+                                    "url": "https://www.campos.rj.gov.br/diario-oficial.php"
+                                },
+                                {
+                                    "name": "Diário Oficial do Município de Belford Roxo",
+                                    "type": "url",
+                                    "url": "https://transparencia.prefeituradebelfordroxo.rj.gov.br/"
+                                },
+                                {
+                                    "name": "Diário Oficial do Município de São Gonçalo",
+                                    "type": "url",
+                                    "url": "https://www.saogoncalo.rj.gov.br/diario-oficial/"
+                                },
+                                {
+                                    "name": "Diário Oficial do Município de Nova Iguaçu",
+                                    "type": "url",
+                                    "url": "https://www.novaiguacu.rj.gov.br/diario-oficial/"
+                                },
+                                {
+                                    "name": "Diário Oficial do Município de Niterói",
+                                    "type": "url",
+                                    "url": "http://www.niteroi.rj.gov.br/do.html"
+                                },
+                                {
+                                    "name": "Diário Oficial do Município de Duque de Caxias",
+                                    "type": "url",
+                                    "url": "https://duquedecaxias.rj.gov.br/portal/boletim-oficial.html"
+                                }
+                               
+                                ],
+                    "name": "Diários Oficiais",
+                    "type": "folder"
+                },
+                {  
+                    "children": [
+                        
+                                {
+                                    "name": "Portal da Transparência - Estado do Rio de Janeiro",
+                                    "type": "url",
+                                    "url": "https://www.consultaremuneracao.rj.gov.br/ConsultaRemuneracao"
+                                },
+                                {
+                                    "name": "Portal da Transparência - Município do Rio de Janeiro",
+                                    "type": "url",
+                                    "url": "http://www.rio.rj.gov.br/web/transparencia/principal"
+                                },
+                                {
+                                    "name": "Portal da Transparência - Município de Belford Roxo",
+                                    "type": "url",
+                                    "url": "https://transparencia.prefeituradebelfordroxo.rj.gov.br/"
+                                },
+                                {
+                                    "name": "Portal da Transparência - Município de Campos dos Goytacazes",
+                                    "type": "url",
+                                    "url": "https://transparencia.campos.rj.gov.br/home"
+                                },
+                                {
+                                    "name": "Portal da Transparência - Município de Nilópolis",
+                                    "type": "url",
+                                    "url": "https://pmnilopolis.geosiap.net.br/portal-transparencia/home"
+                                },
+                                {
+                                    "name": "Portal da Transparência - Município de São João de Meriti",
+                                    "type": "url",
+                                    "url": "https://transparencia.meriti.rj.gov.br/"
+                                },
+                                {
+                                    "name": "Portal da Transparência - Município de Nova Iguaçu",
+                                    "type": "url",
+                                    "url": "https://novaiguacu.rj.gov.br/portaldatransparencia/"
+                                },
+                                {
+                                    "name": "Portal da Transparência - Município de São Gonçalo",
+                                    "type": "url",
+                                    "url": "https://www.pmsg.rj.gov.br/transparencia/"
+                                },
+                                {
+                                    "name": "Portal da Transparência - Município de Niterói",
+                                    "type": "url",
+                                    "url": "https://transparencia.niteroi.rj.gov.br/#/"
+                                },
+                                {
+                                    "name": "Portal da Transparência - Município de Duque de Caxias",
+                                    "type": "url",
+                                    "url": "https://transparencia.duquedecaxias.rj.gov.br/"
+                                }
+                        
+                                ],
+                    "name": "Remuneração e Vínculo",
+                    "type": "folder"
+                },
+                {  
+                    "children": [
+                                
+                                {
+                                    "name": "TCU - Processos",
+                                    "type": "url",
+                                    "url": "https://contas.tcu.gov.br/certidao/Web/Certidao/NadaConsta/home.faces"
+                                },
+                                {
+                                    "name": "TCU - Inabilitados e Inidôneos",
+                                    "type": "url",
+                                    "url": "https://contas.tcu.gov.br/ords/f?p=704144:1:133613122160778:::::"
+                                },
+                                {
+                                    "name": "TCU - Irregularidade Eleitoral",
+                                    "type": "url",
+                                    "url": "https://contasirregulares.tcu.gov.br/ordsext/f?p=105:2::::::"
+                                }, 
+                                {
+                                    "name": "CVM - Processos ADM",
+                                    "type": "url",
+                                    "url": "https://sistemas.cvm.gov.br/?Processo"
+                                },
+                                {
+                                    "name": "CVM - Processos Sancionadores",
+                                    "type": "url",
+                                    "url": "https://sistemas.cvm.gov.br/?PAS"
+                                },
+                                {
+                                    "name": "TCE-RJ - Consulta de processos e acórdãos",
+                                    "type": "url",
+                                    "url": "https://www.tce.rj.gov.br/consulta-processo/Acordaos"
+                                },
+                                {
+                                    "name": "TJRJ",
+                                    "type": "url",
+                                    "url": "https://seeu-consulta-pub.pje.jus.br/seeu/processo/consultaPublica.do?actionType=iniciar"
+                                },
+                                {
+                                    "name": "MPRJ – Busca no Portal",
+                                    "type": "url",
+                                    "url": "https://www.mprj.mp.br/busca?p_p_id=br_mp_mprj_internet_busca_web_BuscaPortlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_br_mp_mprj_internet_busca_web_BuscaPortlet_jspPage=%2Fhtml%2Fview.jsp"
+                                },
+                                {
+                                    "name": "TSE – Título e Local de Votação",
+                                    "type": "url",
+                                    "url": "https://www.tse.jus.br/servicos-eleitorais/titulo-e-local-de-votacao/consulta-por-nome"
+                                },
+                                {
+                                    "name": "TSE – Sistema de Filiação Partidária",
+                                    "type": "url",
+                                    "url": "https://filia-consulta.tse.jus.br/#/principal/menu"
+                                },
+                                {
+                                    "name": "TJRJ – Consultas Processuais",
+                                    "type": "url",
+                                    "url": "https://www3.tjrj.jus.br/consultaprocessual/#/consultapublica#porNome"
+                                },
+                                {
+                                    "name": "PGE - Consulta de Valores de Débitos",
+                                    "type": "url",
+                                    "url": "http://www.consultadividaativa.rj.gov.br/RDGWEBLNX/servlet/StartCISPage?PAGEURL=/cisnatural/NatLogon.html&xciParameters.natsession=Consulta_Debitos_DA"
+                                }
+                                ],
+                    "name": "Tribunais e Processos",
+                    "type": "folder"
+                },
+                {
+                    "children": [
+                                {
+                                    "name": "DPF – Certidão de Antecedentes Criminais",
+                                    "type": "url",
+                                    "url": "https://antecedentes.dpf.gov.br/antecedentes-criminais/certidao"
+                                },
+                                {
+                                    "name": "TSE – Certidão de Quitação Eleitoral",
+                                    "type": "url",
+                                    "url": "https://www.tse.jus.br/eleitor/certidoes/certidao-de-quitacao-eleitoral"
+                                },
+                                {
+                                    "name": "TRF2 – Certidões Judiciais Eletrônicas",
+                                    "type": "url",
+                                    "url": "https://certidoes.trf2.jus.br/certidoes/#/principal/solicitar"
+                                },
+                                {
+                                    "name": "TCERJ - Certidão de Processos",
+                                    "type": "url",
+                                    "url": "https://www.tcerj.tc.br/portalnovo/pagina/certidao_de_processos_no_tce_rj"
+                                },
+                                {
+                                    "name": "Certidão Conjunta RBF - CPF",
+                                    "type": "url",
+                                    "url": "https://solucoes.receita.fazenda.gov.br/Servicos/certidaointernet/PF/EmitirPGFN"
+                                },
+                                {
+                                    "name": "Certidão Conjunta RBF – CNPJ",
+                                    "type": "url",
+                                    "url": "https://solucoes.receita.fazenda.gov.br/Servicos/certidaointernet/PJ/EmitirPGFN"
+                                },
+                                {
+                                    "name": "PCERJ - Atestado de Antecedentes Criminais",
+                                    "type": "url",
+                                    "url": "https://atestadodic.detran.rj.gov.br/"
+                                },
+                                {
+                                    "name": "PCERJ - Certidão de Inteiro Teor",
+                                    "type": "url",
+                                    "url": "https://certidaoiifppcerj.detran.rj.gov.br/"
+                                }
+                                ],
+                "name": "Certidões",
+                "type": "folder"
+                                
+                }
+                        ],
+        
+        "name": "Fontes Abertas",
+        "type": "folder"
+        },
+        {
+            "children": [
+             
+               {
+                 "children": [
+                       
+                             {
+                               "name": "SENATRAN",
+                               "type": "url",
+                               "url": "https://portalservicos.senatran.serpro.gov.br/"
+                             },
+                             {
+                               "name": "GOV.BR",
+                               "type": "url",
+                               "url": "https://www.gov.br/pt-br"
+                             },
+                             {
+                               "name": "PORTAL PMERJ",
+                               "type": "url",
+                               "url": "https://portal.pmerj.rj.gov.br/login"
+                             },
+                             {
+                               "name": "CORTEX",
+                               "type": "url",
+                               "url": "https://cortex.mj.gov.br/#"
+                             },
+                             {
+                               "name": "SIGRH",
+                               "type": "url",
+                               "url": "https://sigrh.rj.gov.br/"
+                             },
+                             {
+                               "name": "ROWEB",
+                               "type": "url",
+                               "url": "https://roweb.pcivil.rj.gov.br/"
+                             },
+                             {
+                               "name": "JUCERJA",
+                               "type": "url",
+                               "url": "https://www.jucerja.rj.gov.br/"
+                             },
+                             {
+                               "name": "CENSEC",
+                               "type": "url",
+                               "url": "https://censec.org.br/"
+                             },
+                             {
+                               "name": "CAGED",
+                               "type": "url",
+                               "url": "http://pdet.mte.gov.br/caged"
+                             },
+                             {
+                               "name": "SIPEN",
+                               "type": "url",
+                               "url": "http://10.200.96.17:8080/sipen/acesso/index"
+                             },
+                             {
+                               "name": "SIAPEN",
+                               "type": "url",
+                               "url": "https://siapen.depen.gov.br/spf/"
+                             },
+                             {
+                              "name": "SINESP INFOSEG",
+                              "type": "url",
+                              "url": "https://seguranca.sinesp.gov.br"
+                             },
+                             {
+                               "name": "Portal da Segurança",
+                               "type": "url",
+                               "url": "https://10.200.96.20/portal/portal/"
+                             }
+       
+                             ],
+       
+                "name": "Institucionais",
+                "type": "folder"      
+               },
+               {
+                 "children": [
+       
+                             {
+                               "name": "Confirme On Line",
+                               "type": "url",
+                               "url": "https://consulta5.confirmeonline.com.br/validarLogin/confirmeOnline.xhtml"
+                             },
+                             {
+                               "name": "SCPC Boa Vista Serviços",
+                               "type": "url",
+                               "url": "https://web2.bvsnet.com.br/transacional//login.php"
+                             },
+                             {
+                              "name": "SPC Brasil",
+                              "type": "url",
+                              "url": "https://sistema.spc.org.br/spc/controleacesso/autenticacao/entry.action"
+                             },
+                             {
+                               "name": "Assecc do Brasil",
+                               "type": "url",
+                               "url": "https://www.assecc.com.br/"
+                             }
+       
+                             ],
+       
+               "name": "Privadas",
+               "type": "folder"      
+               }
+            
+                        ],
+               
+       "name": "Fontes Fechadas",
+       "type": "folder"
+       },
+       {
+           "children": [
+               { 
+                     "children": [
+                                      {
+                                "children": [
+                                        {
+                                        "name": "IPLogger",
+                                        "type": "url",
+                                        "url": "https://iplogger.org/"
+                                        }, 
+                                        {
+                                        "name": "Registro.BR",
+                                        "type": "url",
+                                        "url": "https://registro.br/tecnologia/ferramentas/"
+                                        }
+                                            ],
+                        "name": "Protocolo IP",
+                        "type": "folder"       
+                        },
+                        {
+                                "children": [
+                                        {
+                                        "name": "Wallet Explorer",
+                                        "type": "url",
+                                        "url": "https://www.walletexplorer.com/"
+                                        }
+                                            ],
+                        "name": "Criptoativos",
+                        "type": "folder"       
+                        },
+                        {
+                                "children": [
+                                        {
+                                        "name": "Have I Been Pwned",
+                                        "type": "url",
+                                        "url": "https://haveibeenpwned.com/"
+                                        }
+                                            ],
+                        "name": "Vazamento de Dados",
+                        "type": "folder"       
+                        },
+                        {
+                                "children": [
+                                        {
+                                        "name": "WayBackMachine",
+                                        "type": "url",
+                                        "url": "https://archive.org/web/"
+                                        }
+                                            ],
+                        "name": "Página Web",
+                        "type": "folder"       
+                        },
+                        {
+                                "children": [
+                                        {
+                                        "name": "TrueCaller",
+                                        "type": "url",
+                                        "url": "https://www.truecaller.com/"
+                                        }, 
+                                        {
+                                        "name": "ABRTelecom",
+                                        "type": "url",
+                                        "url": "https://consultanumero.abrtelecom.com.br/consultanumero/consulta/consultaSituacaoAtualCtg"
+                                        }
+                                            ],
+                        "name": "Telefonia",
+                        "type": "folder"       
+                        },
+                        {
+                                "children": [
+                                        {
+                                        "name": "All The Internet",
+                                        "type": "url",
+                                        "url": "https://www.alltheinternet.com/"       
+                                        },
+                                        {
+                                        "name": "Carrot2",
+                                        "type": "url",
+                                        "url": "https://search.carrot2.org/#/search/web"
+                                        }, 
+                                        {
+                                        "name": "DuckDuckGo",
+                                        "type": "url",
+                                        "url": "https://duckduckgo.com/"
+                                        }, 
+                                        {
+                                        "name": "Webmii",
+                                        "type": "url",
+                                        "url": "https://webmii.com/"
+                                        }
+                                            ],
+                        "name": "Indexadores de Conteúdo",
+                        "type": "folder"       
+                        },
+                        {
+                                "children": [
+                                        {
+                                        "name": "12ft.io",
+                                        "type": "url",
+                                        "url": "https://12ft.io/"       
+                                        },
+                                        {
+                                        "name": "Toggle JavaScript",
+                                        "type": "url",
+                                        "url": "https://chrome.google.com/webstore/detail/toggle-javascript/cidlcjdalomndpeagkjpnefhljffbnlo?hl=pt-BR"
+                                        }, 
+                                        {
+                                        "name": "Leia Isso",
+                                        "type": "url",
+                                        "url": "https://leiaisso.net/"
+                                        }, 
+                                        {
+                                        "name": "Burlesco",
+                                        "type": "url",
+                                        "url": "https://burles.co/instrucoes-chrome.html"
+                                        }
+                                            ],
+                        "name": "PayWall",
+                        "type": "folder"       
+                        },
+                        {
+                                "children": [
+                                        {
+                                        "name": "Botometer",
+                                        "type": "url",
+                                        "url": "https://botometer.osome.iu.edu/"
+                                        },
+                                        {
+                                        "name": "Inoreader",
+                                        "type": "url",
+                                        "url": "https://www.inoreader.com/"
+                                        },
+                                        {
+                                        "name": "Tweetdeck",
+                                        "type": "url",
+                                        "url": "https://tweetdeck.twitter.com/"
+                                        },
+                                        {
+                                        "name": "4Devs",
+                                        "type": "url",
+                                        "url": "https://www.4devs.com.br/"
+                                        }
+                                            ],
+                        "name": "SocMInt",
+                        "type": "folder"
+                        },
+                        {
+                                "children": [
+                                        {
+                                        "name": "TinEye - Busca Reversa de Imagem",
+                                        "type": "url",
+                                        "url": "https://tineye.com/"
+                                        }
+                                            ],
+                        "name": "Imagem",
+                        "type": "folder"
+                        },     
+                        {
+                        "name": "CRONOS",
+                        "type": "url",
+                        "url": "https://www.cronos.gsi.rj.gov.br"
+                        }
+                    ],     
+
+"name": "Ferramentas",
+"type": "folder"
+}
+                ],
+ 
+ 
+    "name": "SSIE",
+    "type": "folder"
+  }

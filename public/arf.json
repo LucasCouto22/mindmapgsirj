@@ -1,0 +1,208 @@
+{
+  "children": [
+ 
+   {
+   "children": [
+ 
+     {
+     "children": [
+               {
+                    "children": [  
+ 
+                      {
+                        "name": "TSE – Sistema de Filiação Partidária",
+                        "type": "url",
+                        "url": "https://filia-consulta.tse.jus.br/#/principal/menu"
+                       },
+                       {
+                         "name": "TJRJ – Consultas Processuais",
+                         "type": "url",
+                         "url": "https://www3.tjrj.jus.br/consultaprocessual/#/consultapublica#porNome"
+                       },
+                       {
+                         "name": "PGE - Consulta de Valores de Débitos",
+                         "type": "url",
+                         "url": "http://www.consultadividaativa.rj.gov.br/RDGWEBLNX/servlet/StartCISPage?PAGEURL=/cisnatural/NatLogon.html&xciParameters.natsession=Consulta_Debitos_DA"
+                       },
+                        {
+                         "name": "Portal de Dados Abertos",
+                         "type": "url",
+                         "url": "https://dados.gov.br/home"
+                       },
+                       {
+                         "name": "Portal da Transparência",
+                         "type": "url",
+                         "url": "https://www.consultaremuneracao.rj.gov.br/ConsultaRemuneracao"
+                       }
+                               ],
+                               
+                   "name": "Consultas",
+                   "type": "folder"
+               },
+               {
+                 "children": [  
+              
+                 {
+                  "name": "DPF – Certidão de Antecedentes Criminais",
+                  "type": "url",
+                  "url": "https://antecedentes.dpf.gov.br/antecedentes-criminais/certidao"
+                 },
+                 {
+                  "name": "TSE – Certidão de Crimes Eleitorais",
+                  "type": "url",
+                  "url": "https://www.tse.jus.br/servicos-eleitorais/certidoes/certidao-de-crimes-eleitorais"
+                 },  
+                 {
+                  "name": "TSE – Certidão de Quitação Eleitoral",
+                  "type": "url",
+                  "url": "https://www.tse.jus.br/eleitor/certidoes/certidao-de-quitacao-eleitoral"
+                 },
+                 {
+                  "name": "TRF2 – Certidões Judiciais Eletrônicas",
+                  "type": "url",
+                  "url": "https://certidoes.trf2.jus.br/certidoes/#/principal/solicitar"
+                 },
+                 {
+                  "name": "TCERJ - Certidão de Processos",
+                  "type": "url",
+                  "url": "https://www.tcerj.tc.br/portalnovo/pagina/certidao_de_processos_no_tce_rj"
+                },
+                {
+                  "name": "Certidão Conjunta RBF - CPF",
+                  "type": "url",
+                  "url": "https://solucoes.receita.fazenda.gov.br/Servicos/certidaointernet/PF/EmitirPGFN"
+                },
+                {
+                  "name": "Certidão Conjunta RBF – CNPJ",
+                  "type": "url",
+                  "url": "https://solucoes.receita.fazenda.gov.br/Servicos/certidaointernet/PJ/EmitirPGFN"
+                },
+                {
+                  "name": "PCERJ - Atestado de Antecedentes Criminais",
+                  "type": "url",
+                  "url": "https://atestadodic.detran.rj.gov.br/"
+                },
+                {
+                  "name": "PCERJ - Certidão de Inteiro Teor",
+                  "type": "url",
+                  "url": "https://certidaoiifppcerj.detran.rj.gov.br/"
+                }
+                             ],
+ 
+               "name": "Certidões",
+               "type": "folder"
+             
+               } 
+                 ],
+ 
+           "name": "Fontes Abertas",
+           "type": "folder"
+           },
+           { 
+             "children": [
+ 
+                  {
+                    "name": "CRONOS",
+                    "type": "url",
+                    "url": "https://www.cronos.gsi.rj.gov.br"
+                  },
+                  {
+                    "name": "GOV.BR",
+                    "type": "url",
+                    "url": "https://www.gov.br/pt-br"
+                  },
+                  {
+                    "name": "PORTAL PMERJ",
+                    "type": "url",
+                    "url": "https://portal.pmerj.rj.gov.br/login"
+                  },
+                  {
+                    "name": "SISPES",
+                    "type": "url",
+                    "url": "http://sispes.pmerj.rj.gov.br/"
+                  },
+                  {
+                    "name": "CORTEX",
+                    "type": "url",
+                    "url": "https://cortex.mj.gov.br/#"
+                  },
+                  {
+                    "name": "SIGRH",
+                    "type": "url",
+                    "url": "https://sigrh.rj.gov.br/"
+                  },
+                  {
+                    "name": "ROWEB",
+                    "type": "url",
+                    "url": "https://roweb.pcivil.rj.gov.br/"
+                  },
+                  {
+                    "name": "JUCERJA",
+                    "type": "url",
+                    "url": "https://www.jucerja.rj.gov.br/"
+                  },
+                  {
+                    "name": "CENSEC",
+                    "type": "url",
+                    "url": "https://censec.org.br/"
+                  },
+                  {
+                    "name": "CAGED",
+                    "type": "url",
+                    "url": "https://caged.mte.gov.br/caged"
+                  },
+                  {
+                    "name": "SIPEN",
+                    "type": "url",
+                    "url": "http://10.200.96.17:8080/sipen/acesso/index"
+                  },
+                  {
+                    "name": "SIAPEN",
+                    "type": "url",
+                    "url": "https://siapen.depen.gov.br/spf/"
+                  },
+                  {
+                   "name": "SINESP INFOSEG",
+                   "type": "url",
+                   "url": "https://seguranca.sinesp.gov.br"
+                  },
+                  {
+                    "name": "Portal da Segurança",
+                    "type": "url",
+                    "url": "https://10.200.96.20/portal/portal/"
+                  },
+                  {
+                    "name": "Confirme On Line",
+                    "type": "url",
+                    "url": "https://consulta5.confirmeonline.com.br/validarLogin/confirmeOnline.xhtml"
+                  },
+                  {
+                    "name": "Boa Vista – SCPC",
+                    "type": "url",
+                    "url": "https://web2.bvsnet.com.br/transacional//login.php"
+                  },
+                  {
+                   "name": "SCPC Brasil",
+                   "type": "url",
+                   "url": "https://sistema.spc.org.br/spc/controleacesso/autenticacao/entry.action"
+                  },
+                  {
+                    "name": "Assec  do Brasil",
+                    "type": "url",
+                    "url": "https://www.assecc.com.br/"
+                  }
+                         ],
+ 
+             "name": "Fontes Fechadas",
+             "type": "folder"
+           }
+           ],
+ 
+       "name": "Compliance",
+       "type": "folder"
+     }
+     ],
+ 
+   "name": "SSIE",
+   "type": "folder"
+ }

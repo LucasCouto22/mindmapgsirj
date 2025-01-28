@@ -1,0 +1,59 @@
+body {
+  background-color: #ffffff;
+  background-image: url("/public/Fearless (3).png");
+  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica;
+}
+
+#header {
+  font-size: 40px;
+  color: white;
+  font-weight: bold;
+  top: 20px;
+  text-align: center;
+  text-shadow: 4px 4px 8px #000001;
+}
+
+#referencia{
+  text-shadow: 2px 2px 4px #000001;
+  color: #fff;
+}
+
+footer{
+  text-shadow: 2px 2px 4px #000001;
+  color: #ffffff
+}
+
+.legend {
+  position: absolute;
+  top: 0px;
+  right: 0;
+  width: 330px;
+  font-size: 11px;
+  color: #000;
+}
+
+.node {
+  cursor: pointer;
+}
+
+.node circle {
+  cursor: pointer;
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 3px;
+}
+
+.node text {
+  font-size: 18px;
+  fill: rgb(255, 251, 251);
+  font-weight: bold;
+  text-shadow: 8px 8px 16px #000001;
+  background-color: #fff !important;
+}
+
+path.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
