@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Mind Map GSI-RJ · Governo do Estado do Rio de Janeiro</title>
+
+  <!-- Fonte de apoio definida no Manual de Marca do GovRJ: família Roboto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+
+  <!-- Biblioteca D3 (dependência local, já presente no projeto) -->
+  <script type="text/javascript" src="public/js/d3.v3.min.js"></script>
+
+  <style>
+    /* =========================================================
+       Identidade visual — Governo do Estado do Rio de Janeiro
+       Cores oficiais (Manual de Marca / OUT 2023):
+         Azul .......... #005A92   Pantone 3015 C
+         Dourado ....... #BC9D32   Pantone 117 C
+         Verde ......... #427842   Pantone 3415 C
+         Cinza ......... #A0A0A0   Pantone Cool Gray 7 C
+         Preto ......... #000000
+       Navy / roxo / ciano: linguagem gráfica do próprio manual.
+       ========================================================= */
+    :root {
+      --rj-azul:    #005A92;
+      --rj-dourado: #BC9D32;
+      --rj-verde:   #427842;
+      --rj-cinza:   #A0A0A0;
+      --rj-preto:   #000000;
+      --rj-navy:    #0b1e3d;
+      --rj-navy-2:  #16305c;
+      --rj-roxo:    #4a2c6d;
+      --rj-ciano:   #37c2d0;
+      --rj-bg:      #eef1f5;
+      --rj-branco:  #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--rj-bg);
+      color: var(--rj-navy);
+      font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      min-height: 100%;
+    }
+
+    /* ---------- Cabeçalho de marca ---------- */
+    #brand-header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 28px;
+      background: linear-gradient(90deg, var(--rj-navy) 0%, var(--rj-navy-2) 55%, var(--rj-roxo) 100%);
+      border-bottom: 4px solid var(--rj-ciano);
+      color: var(--rj-branco);
+    }
+    #brand-header .brasao {
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      background: var(--rj-branco);
+      padding: 3px;
+      flex: 0 0 auto;
+      box-shadow: 0 2px 10px rgba(0,0,0,.35);
+    }
+    #brand-header .titles { line-height: 1.15; }
+    #brand-header .titles h1 {
+      margin: 0;
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: .5px;
+    }
+    #brand-header .titles p {
+      margin: 4px 0 0;
+      font-size: 13px;
+      font-weight: 400;
+      color: #cfe3ef;
+      letter-spacing: .4px;
+    }
+
+    /* Assinatura oficial "GOVERNO DO ESTADO / RIO DE JANEIRO" */
+    .govrj {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .govrj .gov {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 5px;
+    }
+    .govrj .rj {
+      font-family: "Roboto Condensed", "Roboto", sans-serif;
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: 1px;
+    }
+    #brand-header .signature {
+      margin-left: auto;
+      text-align: right;
+      color: var(--rj-branco);
+    }
+    #brand-header .signature .rj { color: var(--rj-branco); }
+
+    /* ---------- Barra de ferramentas ---------- */
+    #toolbar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding: 12px 28px;
+      background: var(--rj-branco);
+      border-bottom: 1px solid #dfe3e9;
+    }
+    #mode-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      color: var(--rj-branco);
+      background: var(--rj-verde);
+    }
+    #mode-badge.restrito { background: var(--rj-azul); }
+    #mode-badge::before {
+      content: "";
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.9);
+    }
+    #toolbar .hint {
+      color: #6b7480;
+      font-size: 12.5px;
+    }
+    #toolbar .spacer { margin-left: auto; }
+
+    .btn {
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      padding: 9px 18px;
+      transition: filter .15s ease, background .15s ease;
+    }
+    .btn:hover { filter: brightness(1.08); }
+    .btn-primary { background: var(--rj-azul); color: #fff; }
+    .btn-gold    { background: var(--rj-dourado); color: #1e1600; }
+    .btn-ghost   { background: #eef1f5; color: var(--rj-navy); border: 1px solid #cfd5dd; }
+
+    /* ---------- Área do mapa ---------- */
+    #map-wrap {
+      overflow: auto;
+      padding: 8px 0 20px;
+      min-height: 60vh;
+    }
+    #body { min-width: 1280px; }
+
+    .node { cursor: pointer; }
+    .node circle {
+      cursor: pointer;
+      fill: var(--rj-branco);
+      stroke: var(--rj-azul);
+      stroke-width: 2.5px;
+    }
+    .node text {
+      font-family: "Roboto", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      fill: var(--rj-navy);
+    }
+    /* nós-folha (links externos) em azul institucional */
+    .node.leaf text { fill: var(--rj-azul); }
+    .node a { text-decoration: none; }
+    .node a:hover text { text-decoration: underline; }
+
+    path.link {
+      fill: none;
+      stroke: var(--rj-cinza);
+      stroke-width: 1.6px;
+      opacity: .7;
+    }
+
+    /* ---------- Rodapé ---------- */
+    #brand-footer {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      padding: 18px 28px;
+      background: var(--rj-navy);
+      color: #c9d6e4;
+      border-top: 4px solid var(--rj-dourado);
+      font-size: 12.5px;
+    }
+    #brand-footer .govrj { color: #fff; }
+    #brand-footer .govrj .rj { color: #fff; }
+    #brand-footer .foot-note { margin-left: auto; text-align: right; max-width: 520px; line-height: 1.5; }
+
+    /* ---------- Modal de login ---------- */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 15, 30, .62);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      padding: 20px;
+    }
+    .overlay.hidden { display: none; }
+
+    .login-card {
+      width: 100%;
+      max-width: 380px;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 18px 50px rgba(0,0,0,.4);
+    }
+    .login-card .card-top {
+      background: linear-gradient(90deg, var(--rj-navy) 0%, var(--rj-roxo) 100%);
+      border-bottom: 3px solid var(--rj-ciano);
+      color: #fff;
+      padding: 18px 22px;
+    }
+    .login-card .card-top h2 { margin: 0; font-size: 20px; font-weight: 900; }
+    .login-card .card-top p  { margin: 4px 0 0; font-size: 12.5px; color: #cfe3ef; }
+    .login-card .card-body { padding: 22px; }
+    .login-card label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #4a5560;
+      margin: 0 0 5px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    .login-card input {
+      width: 100%;
+      font-family: inherit;
+      font-size: 14px;
+      padding: 10px 12px;
+      border: 1px solid #cfd5dd;
+      border-radius: 6px;
+      margin-bottom: 14px;
+    }
+    .login-card input:focus { outline: 2px solid var(--rj-azul); border-color: var(--rj-azul); }
+    .login-card .error {
+      color: #b3261e;
+      font-size: 12.5px;
+      font-weight: 600;
+      margin: -6px 0 12px;
+      min-height: 16px;
+    }
+    .login-card .actions { display: flex; gap: 10px; justify-content: flex-end; }
+
+    @media (max-width: 640px) {
+      #brand-header { flex-wrap: wrap; }
+      #brand-header .signature { margin-left: 0; text-align: left; width: 100%; }
+      #brand-header .titles h1 { font-size: 24px; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===================== CABEÇALHO ===================== -->
+  <header id="brand-header">
+    <img class="brasao" src="public/gsi.jpeg" alt="Brasão GSI-RJ"/>
+    <div class="titles">
+      <h1>Mind Map GSI-RJ</h1>
+      <p>Gabinete de Segurança Institucional · Rio de Janeiro</p>
+    </div>
+    <div class="signature">
+      <div class="govrj">
+        <span class="gov">GOVERNO DO ESTADO</span>
+        <span class="rj">RIO DE JANEIRO</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== BARRA DE FERRAMENTAS ===================== -->
+  <div id="toolbar">
+    <span id="mode-badge">Acervo Público</span>
+    <span class="hint">Clique nos nós para expandir/recolher. Os itens finais abrem o link em nova aba.</span>
+    <span class="spacer"></span>
+    <button id="btn-login" class="btn btn-gold" type="button">Área Restrita</button>
+    <button id="btn-logout" class="btn btn-ghost" type="button" style="display:none;">Sair da Área Restrita</button>
+  </div>
+
+  <!-- ===================== MAPA ===================== -->
+  <main id="map-wrap">
+    <div id="body"></div>
+  </main>
+
+  <!-- ===================== RODAPÉ ===================== -->
+  <footer id="brand-footer">
+    <div class="govrj">
+      <span class="gov">GOVERNO DO ESTADO</span>
+      <span class="rj">RIO DE JANEIRO</span>
+    </div>
+    <div class="foot-note">
+      Gabinete de Segurança Institucional — GSI-RJ · Ferramenta interna de consultas.
+    </div>
+  </footer>
+
+  <!-- ===================== MODAL DE LOGIN ===================== -->
+  <div id="login-overlay" class="overlay hidden">
+    <form id="login-form" class="login-card" autocomplete="off">
+      <div class="card-top">
+        <h2>Área Restrita</h2>
+        <p>Informe suas credenciais para acessar o acervo restrito.</p>
+      </div>
+      <div class="card-body">
+        <label for="login-user">Usuário</label>
+        <input id="login-user" type="text" autocomplete="username" required/>
+        <label for="login-pass">Senha</label>
+        <input id="login-pass" type="password" autocomplete="current-password" required/>
+        <div class="error" id="login-error"></div>
+        <div class="actions">
+          <button type="button" id="btn-cancel" class="btn btn-ghost">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Entrar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+  /* =========================================================
+     1) CREDENCIAIS  (mesmos logins do antigo private.php)
+     Observação: validação client-side — mantida conforme
+     solicitado, sem tratamento de segurança neste momento.
+     ========================================================= */
+  var USERS = [
+    { u: "miguel.ticom",          p: "miguel19011962"   },
+    { u: "claudio.brito",         p: "claudio01081983"  },
+    { u: "ronaldo.bezerra",       p: "ronaldo03071969"  },
+    { u: "francisco.nascimento",  p: "francisco02051965"},
+    { u: "simao.neto",            p: "simao11061961"    },
+    { u: "carlos.carneiro",       p: "carlos08121976"   },
+    { u: "rodrigo.lima",          p: "rodrigo09021981"  },
+    { u: "luciano.filho",         p: "luciano06061965"  },
+    { u: "wlademir.brazil",       p: "wlademir15091961" },
+    { u: "sergio.pina",           p: "sergio06081959"   },
+    { u: "antonio.moriggi",       p: "antonio06031974"  },
+    { u: "marcia.guimarães",      p: "marcia02021963"   },
+    { u: "stella.noroes",         p: "stella28031988"   },
+    { u: "debora.marques",        p: "debora01031975"   },
+    { u: "ana.saad",              p: "ana14101996"      }
+  ];
+
+  /* =========================================================
+     2) DADOS DOS MAPAS (antigos public/arf.json e arf_private.json)
+     ========================================================= */
+  var PUBLIC_DATA = {
+    "children": [
+      { "children": [
+        { "children": [
+          { "children": [
+            { "name": "TSE – Sistema de Filiação Partidária", "type": "url", "url": "https://filia-consulta.tse.jus.br/#/principal/menu" },
+            { "name": "TJRJ – Consultas Processuais", "type": "url", "url": "https://www3.tjrj.jus.br/consultaprocessual/#/consultapublica#porNome" },
+            { "name": "PGE - Consulta de Valores de Débitos", "type": "url", "url": "http://www.consultadividaativa.rj.gov.br/RDGWEBLNX/servlet/StartCISPage?PAGEURL=/cisnatural/NatLogon.html&xciParameters.natsession=Consulta_Debitos_DA" },
+            { "name": "Portal de Dados Abertos", "type": "url", "url": "https://dados.gov.br/home" },
+            { "name": "Portal da Transparência", "type": "url", "url": "https://www.consultaremuneracao.rj.gov.br/ConsultaRemuneracao" }
+          ], "name": "Consultas", "type": "folder" },
+          { "children": [
+            { "name": "DPF – Certidão de Antecedentes Criminais", "type": "url", "url": "https://antecedentes.dpf.gov.br/antecedentes-criminais/certidao" },
+            { "name": "TSE – Certidão de Crimes Eleitorais", "type": "url", "url": "https://www.tse.jus.br/servicos-eleitorais/certidoes/certidao-de-crimes-eleitorais" },
+            { "name": "TSE – Certidão de Quitação Eleitoral", "type": "url", "url": "https://www.tse.jus.br/eleitor/certidoes/certidao-de-quitacao-eleitoral" },
+            { "name": "TRF2 – Certidões Judiciais Eletrônicas", "type": "url", "url": "https://certidoes.trf2.jus.br/certidoes/#/principal/solicitar" },
+            { "name": "TCERJ - Certidão de Processos", "type": "url", "url": "https://www.tcerj.tc.br/portalnovo/pagina/certidao_de_processos_no_tce_rj" },
+            { "name": "Certidão Conjunta RBF - CPF", "type": "url", "url": "https://solucoes.receita.fazenda.gov.br/Servicos/certidaointernet/PF/EmitirPGFN" },
+            { "name": "Certidão Conjunta RBF – CNPJ", "type": "url", "url": "https://solucoes.receita.fazenda.gov.br/Servicos/certidaointernet/PJ/EmitirPGFN" },
+            { "name": "PCERJ - Atestado de Antecedentes Criminais", "type": "url", "url": "https://atestadodic.detran.rj.gov.br/" },
+            { "name": "PCERJ - Certidão de Inteiro Teor", "type": "url", "url": "https://certidaoiifppcerj.detran.rj.gov.br/" }
+          ], "name": "Certidões", "type": "folder" }
+        ], "name": "Fontes Abertas", "type": "folder" },
+        { "children": [
+          { "name": "CRONOS", "type": "url", "url": "https://www.cronos.gsi.rj.gov.br" },
+          { "name": "GOV.BR", "type": "url", "url": "https://www.gov.br/pt-br" },
+          { "name": "PORTAL PMERJ", "type": "url", "url": "https://portal.pmerj.rj.gov.br/login" },
+          { "name": "SISPES", "type": "url", "url": "http://sispes.pmerj.rj.gov.br/" },
+          { "name": "CORTEX", "type": "url", "url": "https://cortex.mj.gov.br/#" },
+          { "name": "SIGRH", "type": "url", "url": "https://sigrh.rj.gov.br/" },
+          { "name": "ROWEB", "type": "url", "url": "https://roweb.pcivil.rj.gov.br/" },
+          { "name": "JUCERJA", "type": "url", "url": "https://www.jucerja.rj.gov.br/" },
+          { "name": "CENSEC", "type": "url", "url": "https://censec.org.br/" },
+          { "name": "CAGED", "type": "url", "url": "https://caged.mte.gov.br/caged" },
+          { "name": "SIPEN", "type": "url", "url": "http://10.200.96.17:8080/sipen/acesso/index" },
+          { "name": "SIAPEN", "type": "url", "url": "https://siapen.depen.gov.br/spf/" },
+          { "name": "SINESP INFOSEG", "type": "url", "url": "https://seguranca.sinesp.gov.br" },
+          { "name": "Portal da Segurança", "type": "url", "url": "https://10.200.96.20/portal/portal/" },
+          { "name": "Confirme On Line", "type": "url", "url": "https://consulta5.confirmeonline.com.br/validarLogin/confirmeOnline.xhtml" },
+          { "name": "Boa Vista – SCPC", "type": "url", "url": "https://web2.bvsnet.com.br/transacional//login.php" },
+          { "name": "SCPC Brasil", "type": "url", "url": "https://sistema.spc.org.br/spc/controleacesso/autenticacao/entry.action" },
+          { "name": "Assec  do Brasil", "type": "url", "url": "https://www.assecc.com.br/" }
+        ], "name": "Fontes Fechadas", "type": "folder" }
+      ], "name": "Compliance", "type": "folder" }
+    ], "name": "SSIE", "type": "folder"
+  };
+
+  var PRIVATE_DATA = {
+    "children": [
+      { "children": [
+        { "children": [
+          { "name": "Diário Oficial do Estado do Rio de Janeiro", "type": "url", "url": "http://www.ioerj.com.br/" },
+          { "name": "Diário Oficial do Município do Rio de Janeiro", "type": "url", "url": "https://doweb.rio.rj.gov.br/" },
+          { "name": "Diário Oficial do Município de São João de Meriti", "type": "url", "url": "https://transparencia.meriti.rj.gov.br/?serv=1045" },
+          { "name": "Diário Oficial do Município de Nilópolis", "type": "url", "url": "https://nilopolis.rj.gov.br/diario-oficial-online/" },
+          { "name": "Diário Oficial do Município de Campos dos Goytacazes", "type": "url", "url": "https://www.campos.rj.gov.br/diario-oficial.php" },
+          { "name": "Diário Oficial do Município de Belford Roxo", "type": "url", "url": "https://transparencia.prefeituradebelfordroxo.rj.gov.br/" },
+          { "name": "Diário Oficial do Município de São Gonçalo", "type": "url", "url": "https://www.saogoncalo.rj.gov.br/diario-oficial/" },
+          { "name": "Diário Oficial do Município de Nova Iguaçu", "type": "url", "url": "https://www.novaiguacu.rj.gov.br/diario-oficial/" },
+          { "name": "Diário Oficial do Município de Niterói", "type": "url", "url": "http://www.niteroi.rj.gov.br/do.html" },
+          { "name": "Diário Oficial do Município de Duque de Caxias", "type": "url", "url": "https://duquedecaxias.rj.gov.br/portal/boletim-oficial.html" }
+        ], "name": "Diários Oficiais", "type": "folder" },
+        { "children": [
+          { "name": "Portal da Transparência - Estado do Rio de Janeiro", "type": "url", "url": "https://www.consultaremuneracao.rj.gov.br/ConsultaRemuneracao" },
+          { "name": "Portal da Transparência - Município do Rio de Janeiro", "type": "url", "url": "http://www.rio.rj.gov.br/web/transparencia/principal" },
+          { "name": "Portal da Transparência - Município de Belford Roxo", "type": "url", "url": "https://transparencia.prefeituradebelfordroxo.rj.gov.br/" },
+          { "name": "Portal da Transparência - Município de Campos dos Goytacazes", "type": "url", "url": "https://transparencia.campos.rj.gov.br/home" },
+          { "name": "Portal da Transparência - Município de Nilópolis", "type": "url", "url": "https://pmnilopolis.geosiap.net.br/portal-transparencia/home" },
+          { "name": "Portal da Transparência - Município de São João de Meriti", "type": "url", "url": "https://transparencia.meriti.rj.gov.br/" },
+          { "name": "Portal da Transparência - Município de Nova Iguaçu", "type": "url", "url": "https://novaiguacu.rj.gov.br/portaldatransparencia/" },
+          { "name": "Portal da Transparência - Município de São Gonçalo", "type": "url", "url": "https://www.pmsg.rj.gov.br/transparencia/" },
+          { "name": "Portal da Transparência - Município de Niterói", "type": "url", "url": "https://transparencia.niteroi.rj.gov.br/#/" },
+          { "name": "Portal da Transparência - Município de Duque de Caxias", "type": "url", "url": "https://transparencia.duquedecaxias.rj.gov.br/" }
+        ], "name": "Remuneração e Vínculo", "type": "folder" },
+        { "children": [
+          { "name": "TCU - Processos", "type": "url", "url": "https://contas.tcu.gov.br/certidao/Web/Certidao/NadaConsta/home.faces" },
+          { "name": "TCU - Inabilitados e Inidôneos", "type": "url", "url": "https://contas.tcu.gov.br/ords/f?p=704144:1:133613122160778:::::" },
+          { "name": "TCU - Irregularidade Eleitoral", "type": "url", "url": "https://contasirregulares.tcu.gov.br/ordsext/f?p=105:2::::::" },
+          { "name": "CVM - Processos ADM", "type": "url", "url": "https://sistemas.cvm.gov.br/?Processo" },
+          { "name": "CVM - Processos Sancionadores", "type": "url", "url": "https://sistemas.cvm.gov.br/?PAS" },
+          { "name": "TCE-RJ - Consulta de processos e acórdãos", "type": "url", "url": "https://www.tce.rj.gov.br/consulta-processo/Acordaos" },
+          { "name": "TJRJ", "type": "url", "url": "https://seeu-consulta-pub.pje.jus.br/seeu/processo/consultaPublica.do?actionType=iniciar" },
+          { "name": "MPRJ – Busca no Portal", "type": "url", "url": "https://www.mprj.mp.br/busca?p_p_id=br_mp_mprj_internet_busca_web_BuscaPortlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_br_mp_mprj_internet_busca_web_BuscaPortlet_jspPage=%2Fhtml%2Fview.jsp" },
+          { "name": "TSE – Título e Local de Votação", "type": "url", "url": "https://www.tse.jus.br/servicos-eleitorais/titulo-e-local-de-votacao/consulta-por-nome" },
+          { "name": "TSE – Sistema de Filiação Partidária", "type": "url", "url": "https://filia-consulta.tse.jus.br/#/principal/menu" },
+          { "name": "TJRJ – Consultas Processuais", "type": "url", "url": "https://www3.tjrj.jus.br/consultaprocessual/#/consultapublica#porNome" },
+          { "name": "PGE - Consulta de Valores de Débitos", "type": "url", "url": "http://www.consultadividaativa.rj.gov.br/RDGWEBLNX/servlet/StartCISPage?PAGEURL=/cisnatural/NatLogon.html&xciParameters.natsession=Consulta_Debitos_DA" }
+        ], "name": "Tribunais e Processos", "type": "folder" },
+        { "children": [
+          { "name": "DPF – Certidão de Antecedentes Criminais", "type": "url", "url": "https://antecedentes.dpf.gov.br/antecedentes-criminais/certidao" },
+          { "name": "TSE – Certidão de Quitação Eleitoral", "type": "url", "url": "https://www.tse.jus.br/eleitor/certidoes/certidao-de-quitacao-eleitoral" },
+          { "name": "TRF2 – Certidões Judiciais Eletrônicas", "type": "url", "url": "https://certidoes.trf2.jus.br/certidoes/#/principal/solicitar" },
+          { "name": "TCERJ - Certidão de Processos", "type": "url", "url": "https://www.tcerj.tc.br/portalnovo/pagina/certidao_de_processos_no_tce_rj" },
+          { "name": "Certidão Conjunta RBF - CPF", "type": "url", "url": "https://solucoes.receita.fazenda.gov.br/Servicos/certidaointernet/PF/EmitirPGFN" },
+          { "name": "Certidão Conjunta RBF – CNPJ", "type": "url", "url": "https://solucoes.receita.fazenda.gov.br/Servicos/certidaointernet/PJ/EmitirPGFN" },
+          { "name": "PCERJ - Atestado de Antecedentes Criminais", "type": "url", "url": "https://atestadodic.detran.rj.gov.br/" },
+          { "name": "PCERJ - Certidão de Inteiro Teor", "type": "url", "url": "https://certidaoiifppcerj.detran.rj.gov.br/" }
+        ], "name": "Certidões", "type": "folder" }
+      ], "name": "Fontes Abertas", "type": "folder" },
+      { "children": [
+        { "children": [
+          { "name": "SENATRAN", "type": "url", "url": "https://portalservicos.senatran.serpro.gov.br/" },
+          { "name": "GOV.BR", "type": "url", "url": "https://www.gov.br/pt-br" },
+          { "name": "PORTAL PMERJ", "type": "url", "url": "https://portal.pmerj.rj.gov.br/login" },
+          { "name": "CORTEX", "type": "url", "url": "https://cortex.mj.gov.br/#" },
+          { "name": "SIGRH", "type": "url", "url": "https://sigrh.rj.gov.br/" },
+          { "name": "ROWEB", "type": "url", "url": "https://roweb.pcivil.rj.gov.br/" },
+          { "name": "JUCERJA", "type": "url", "url": "https://www.jucerja.rj.gov.br/" },
+          { "name": "CENSEC", "type": "url", "url": "https://censec.org.br/" },
+          { "name": "CAGED", "type": "url", "url": "http://pdet.mte.gov.br/caged" },
+          { "name": "SIPEN", "type": "url", "url": "http://10.200.96.17:8080/sipen/acesso/index" },
+          { "name": "SIAPEN", "type": "url", "url": "https://siapen.depen.gov.br/spf/" },
+          { "name": "SINESP INFOSEG", "type": "url", "url": "https://seguranca.sinesp.gov.br" },
+          { "name": "Portal da Segurança", "type": "url", "url": "https://10.200.96.20/portal/portal/" }
+        ], "name": "Institucionais", "type": "folder" },
+        { "children": [
+          { "name": "Confirme On Line", "type": "url", "url": "https://consulta5.confirmeonline.com.br/validarLogin/confirmeOnline.xhtml" },
+          { "name": "SCPC Boa Vista Serviços", "type": "url", "url": "https://web2.bvsnet.com.br/transacional//login.php" },
+          { "name": "SPC Brasil", "type": "url", "url": "https://sistema.spc.org.br/spc/controleacesso/autenticacao/entry.action" },
+          { "name": "Assecc do Brasil", "type": "url", "url": "https://www.assecc.com.br/" }
+        ], "name": "Privadas", "type": "folder" }
+      ], "name": "Fontes Fechadas", "type": "folder" },
+      { "children": [
+        { "children": [
+          { "children": [
+            { "name": "IPLogger", "type": "url", "url": "https://iplogger.org/" },
+            { "name": "Registro.BR", "type": "url", "url": "https://registro.br/tecnologia/ferramentas/" }
+          ], "name": "Protocolo IP", "type": "folder" },
+          { "children": [
+            { "name": "Wallet Explorer", "type": "url", "url": "https://www.walletexplorer.com/" }
+          ], "name": "Criptoativos", "type": "folder" },
+          { "children": [
+            { "name": "Have I Been Pwned", "type": "url", "url": "https://haveibeenpwned.com/" }
+          ], "name": "Vazamento de Dados", "type": "folder" },
+          { "children": [
+            { "name": "WayBackMachine", "type": "url", "url": "https://archive.org/web/" }
+          ], "name": "Página Web", "type": "folder" },
+          { "children": [
+            { "name": "TrueCaller", "type": "url", "url": "https://www.truecaller.com/" },
+            { "name": "ABRTelecom", "type": "url", "url": "https://consultanumero.abrtelecom.com.br/consultanumero/consulta/consultaSituacaoAtualCtg" }
+          ], "name": "Telefonia", "type": "folder" },
+          { "children": [
+            { "name": "All The Internet", "type": "url", "url": "https://www.alltheinternet.com/" },
+            { "name": "Carrot2", "type": "url", "url": "https://search.carrot2.org/#/search/web" },
+            { "name": "DuckDuckGo", "type": "url", "url": "https://duckduckgo.com/" },
+            { "name": "Webmii", "type": "url", "url": "https://webmii.com/" }
+          ], "name": "Indexadores de Conteúdo", "type": "folder" },
+          { "children": [
+            { "name": "12ft.io", "type": "url", "url": "https://12ft.io/" },
+            { "name": "Toggle JavaScript", "type": "url", "url": "https://chrome.google.com/webstore/detail/toggle-javascript/cidlcjdalomndpeagkjpnefhljffbnlo?hl=pt-BR" },
+            { "name": "Leia Isso", "type": "url", "url": "https://leiaisso.net/" },
+            { "name": "Burlesco", "type": "url", "url": "https://burles.co/instrucoes-chrome.html" }
+          ], "name": "PayWall", "type": "folder" },
+          { "children": [
+            { "name": "Botometer", "type": "url", "url": "https://botometer.osome.iu.edu/" },
+            { "name": "Inoreader", "type": "url", "url": "https://www.inoreader.com/" },
+            { "name": "Tweetdeck", "type": "url", "url": "https://tweetdeck.twitter.com/" },
+            { "name": "4Devs", "type": "url", "url": "https://www.4devs.com.br/" }
+          ], "name": "SocMInt", "type": "folder" },
+          { "children": [
+            { "name": "TinEye - Busca Reversa de Imagem", "type": "url", "url": "https://tineye.com/" }
+          ], "name": "Imagem", "type": "folder" },
+          { "name": "CRONOS", "type": "url", "url": "https://www.cronos.gsi.rj.gov.br" }
+        ], "name": "Ferramentas", "type": "folder" }
+      ], "name": "Fontes Fechadas", "type": "folder", "note": "Ferramentas" }
+    ], "name": "SSIE", "type": "folder"
+  };
+
+  /* Ajuste: no arquivo original a 3ª pasta de nível 1 do acervo restrito
+     é "Ferramentas". Corrigimos o rótulo do agrupador para refletir isso. */
+  PRIVATE_DATA.children[2].name = "Ferramentas";
+  PRIVATE_DATA.children[2] = PRIVATE_DATA.children[2].children[0];
+
+  /* =========================================================
+     3) RENDERIZAÇÃO DO MIND MAP (D3 v3) — refatorado a partir
+        do antigo public/js/arf.js para poder trocar de acervo.
+     ========================================================= */
+  function renderTree(rawData) {
+    var container = document.getElementById("body");
+    container.innerHTML = ""; // limpa render anterior
+
+    // clona os dados para que a expansão/recolhimento reinicie a cada troca
+    var data = JSON.parse(JSON.stringify(rawData));
+
+    var margin = [20, 120, 20, 160],
+        width  = 1280 - margin[1] - margin[3],
+        height = 820 - margin[0] - margin[2],
+        i = 0,
+        duration = 750,
+        root;
+
+    var tree = d3.layout.tree().size([height, width]);
+    var diagonal = d3.svg.diagonal().projection(function(d) { return [d.y, d.x]; });
+
+    var vis = d3.select("#body").append("svg:svg")
+        .attr("width", width + margin[1] + margin[3])
+        .attr("height", height + margin[0] + margin[2])
+      .append("svg:g")
+        .attr("transform", "translate(" + margin[3] + "," + margin[0] + ")");
+
+    root = data;
+    root.x0 = height / 2;
+    root.y0 = 0;
+
+    function collapse(d) {
+      if (d.children) {
+        d._children = d.children;
+        d._children.forEach(collapse);
+        d.children = null;
+      }
+    }
+    root.children.forEach(collapse);
+    update(root);
+
+    function update(source) {
+      var nodes = tree.nodes(root).reverse();
+      nodes.forEach(function(d) { d.y = d.depth * 180; });
+
+      var node = vis.selectAll("g.node")
+          .data(nodes, function(d) { return d.id || (d.id = ++i); });
+
+      var nodeEnter = node.enter().append("svg:g")
+          .attr("class", "node")
+          .attr("transform", function() { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+          .on("click", function(d) { toggle(d); update(d); });
+
+      nodeEnter.append("svg:circle")
+          .attr("r", 1e-6)
+          .style("fill", function(d) { return d._children ? "#005A92" : "#fff"; });
+
+      nodeEnter.append("a")
+          .attr("target", "_blank")
+          .attr("xlink:href", function(d) { return d.url || null; })
+          .append("svg:text")
+          .attr("x", function(d) { return d.children || d._children ? -12 : 12; })
+          .attr("dy", ".35em")
+          .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
+          .text(function(d) { return d.name; })
+          .style("fill-opacity", 1e-6);
+
+      // marca nós-folha (links) para colorir em azul via CSS
+      nodeEnter.classed("leaf", function(d) { return !(d.children || d._children); });
+
+      nodeEnter.append("svg:title")
+          .text(function(d) { return d.url ? d.url : d.name; });
+
+      var nodeUpdate = node.transition()
+          .duration(duration)
+          .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+
+      nodeUpdate.select("circle")
+          .attr("r", 6)
+          .style("fill", function(d) { return d._children ? "#005A92" : "#fff"; });
+
+      nodeUpdate.select("text").style("fill-opacity", 1);
+
+      var nodeExit = node.exit().transition()
+          .duration(duration)
+          .attr("transform", function() { return "translate(" + source.y + "," + source.x + ")"; })
+          .remove();
+
+      nodeExit.select("circle").attr("r", 1e-6);
+      nodeExit.select("text").style("fill-opacity", 1e-6);
+
+      var link = vis.selectAll("path.link")
+          .data(tree.links(nodes), function(d) { return d.target.id; });
+
+      link.enter().insert("svg:path", "g")
+          .attr("class", "link")
+          .attr("d", function() {
+            var o = { x: source.x0, y: source.y0 };
+            return diagonal({ source: o, target: o });
+          })
+        .transition().duration(duration).attr("d", diagonal);
+
+      link.transition().duration(duration).attr("d", diagonal);
+
+      link.exit().transition().duration(duration)
+          .attr("d", function() {
+            var o = { x: source.x, y: source.y };
+            return diagonal({ source: o, target: o });
+          })
+          .remove();
+
+      nodes.forEach(function(d) { d.x0 = d.x; d.y0 = d.y; });
+    }
+
+    function toggle(d) {
+      if (d.children) {
+        d._children = d.children;
+        d.children = null;
+      } else {
+        d.children = d._children;
+        d._children = null;
+      }
+    }
+  }
+
+  /* =========================================================
+     4) CONTROLE DE MODO / LOGIN
+     ========================================================= */
+  var badge     = document.getElementById("mode-badge");
+  var btnLogin  = document.getElementById("btn-login");
+  var btnLogout = document.getElementById("btn-logout");
+  var overlay   = document.getElementById("login-overlay");
+  var form      = document.getElementById("login-form");
+  var inputUser = document.getElementById("login-user");
+  var inputPass = document.getElementById("login-pass");
+  var loginErr  = document.getElementById("login-error");
+  var btnCancel = document.getElementById("btn-cancel");
+
+  function setPublic() {
+    badge.textContent = "Acervo Público";
+    badge.classList.remove("restrito");
+    btnLogin.style.display = "";
+    btnLogout.style.display = "none";
+    renderTree(PUBLIC_DATA);
+  }
+
+  function setPrivate() {
+    badge.textContent = "Acervo Restrito";
+    badge.classList.add("restrito");
+    btnLogin.style.display = "none";
+    btnLogout.style.display = "";
+    renderTree(PRIVATE_DATA);
+  }
+
+  function openLogin() {
+    loginErr.textContent = "";
+    inputUser.value = "";
+    inputPass.value = "";
+    overlay.classList.remove("hidden");
+    inputUser.focus();
+  }
+  function closeLogin() { overlay.classList.add("hidden"); }
+
+  btnLogin.addEventListener("click", openLogin);
+  btnCancel.addEventListener("click", closeLogin);
+  btnLogout.addEventListener("click", setPublic);
+  overlay.addEventListener("click", function(e) { if (e.target === overlay) closeLogin(); });
+  document.addEventListener("keydown", function(e) { if (e.key === "Escape") closeLogin(); });
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    var u = inputUser.value.trim();
+    var p = inputPass.value;
+    var ok = USERS.some(function(x) { return x.u === u && x.p === p; });
+    if (ok) {
+      closeLogin();
+      setPrivate();
+    } else {
+      loginErr.textContent = "Usuário ou senha incorretos!";
+      inputPass.value = "";
+      inputPass.focus();
+    }
+  });
+
+  /* Estado inicial: acervo público (equivalente ao antigo index.php) */
+  setPublic();
+  </script>
+</body>
+</html>
